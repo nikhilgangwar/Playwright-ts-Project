@@ -2,7 +2,7 @@ import { test, expect, Page, Locator } from "@playwright/test";
 
 import { products } from "../test-data/products.json";
 
-exports.InventoryPage = class InventoryPage {
+export class InventoryPage {
   /**
    * @param {import('@playwright/test').Page} page
    */
@@ -69,4 +69,4 @@ exports.InventoryPage = class InventoryPage {
   async goToShopingCart() {
     await this.shopingCartCountBadge.click({ force: true });
   }
-};
+}

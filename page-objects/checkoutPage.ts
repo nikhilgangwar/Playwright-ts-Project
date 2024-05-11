@@ -1,6 +1,6 @@
 import { test, expect, Page, Locator } from "@playwright/test";
 
-exports.CheckoutPage = class CheckoutPage {
+export class CheckoutPage {
   /**
    * @param {import('@playwright/test').Page} page
    */
@@ -54,4 +54,4 @@ exports.CheckoutPage = class CheckoutPage {
   async clickCancelButton() {
     await this.cancelButton;
   }
-};
+}

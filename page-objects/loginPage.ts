@@ -1,9 +1,7 @@
 import { test, expect, Page, Locator } from "@playwright/test";
 
-exports.LoginPage = class LoginPage {
-  /**
-   * @param {import('@playwright/test').Page} page
-   */
+export class LoginPage {
+ 
 
   readonly page: Page;
   readonly usernameInput: Locator;
