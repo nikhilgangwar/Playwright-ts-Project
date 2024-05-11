@@ -34,6 +34,11 @@ test("Login for standard user using atomic functions", async ({ page }) => {
   await page.locator('[data-test="finish"]').click();
 });
 
+test("login for standard user using helper function", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  await loginPage.login("standard_user", "secret_sauce");
+});
+
 test.afterEach(async ({ page }) => {
   await page.close();
 });
