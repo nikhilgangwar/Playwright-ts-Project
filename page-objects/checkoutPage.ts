@@ -11,6 +11,7 @@ exports.CheckoutPage = class CheckoutPage {
   readonly zippostalCode: Locator;
   readonly continueButton: Locator;
   readonly cancelButton: Locator;
+  readonly checkoutButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -18,7 +19,7 @@ exports.CheckoutPage = class CheckoutPage {
     this.lastName = page.locator('[data-test="lastName"]');
     this.zippostalCode = page.locator('[data-test="postalCode"]');
     this.continueButton = page.locator('[data-test="continue"]');
-
+    this.checkoutButton = page.locator('[data-test="checkout"]');
     this.cancelButton = page.locator('[data-test="cancel"]');
   }
 
@@ -47,7 +48,9 @@ exports.CheckoutPage = class CheckoutPage {
   async clickContinueButton() {
     await this.continueButton.click();
   }
-
+  async clickCheckoutButton() {
+    await this.checkoutButton.click();
+  }
   async clickCancelButton() {
     await this.cancelButton;
   }

@@ -1,5 +1,7 @@
 import { test, expect, Page, Locator } from "@playwright/test";
 
+import { products } from "../test-data/products.json";
+
 exports.InventoryPage = class InventoryPage {
   /**
    * @param {import('@playwright/test').Page} page
@@ -51,5 +53,20 @@ exports.InventoryPage = class InventoryPage {
 
   async clickOnRemoveFromCartButton() {
     await this.removeFromCartButton.click();
+  }
+
+  async addProductfromProductDetailPage(id: number) {
+    const product = products[id - 1];
+    const datatestvalue = product.datatest;
+    await this.page
+      .locator("[data-test=" + datatestvalue + "]")
+      .click({ force: true });
+
+    await this.clickOnAddToCartButton();
+    await this.backToProductsLink.click();
+  }
+
+  async goToShopingCart() {
+    await this.shopingCartCountBadge.click({ force: true });
   }
 };
