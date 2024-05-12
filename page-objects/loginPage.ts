@@ -1,8 +1,6 @@
 import { test, expect, Page, Locator } from "@playwright/test";
 
 export class LoginPage {
- 
-
   readonly page: Page;
   readonly usernameInput: Locator;
   readonly passwordInput: Locator;
@@ -17,17 +15,17 @@ export class LoginPage {
     this.error = page.locator(".error");
   }
 
-  async login(username: string, password: string) {
+  async login(username: any, password: any) {
     await this.enterusername(username);
     await this.enterpassword(password);
     await this.clicklogin();
   }
 
-  async enterusername(username: string) {
+  async enterusername(username: any) {
     await this.usernameInput.fill(username);
   }
 
-  async enterpassword(password: string) {
+  async enterpassword(password: any) {
     await this.passwordInput.fill(password);
   }
 
@@ -38,4 +36,4 @@ export class LoginPage {
   async getError() {
     return await this.error.textContent();
   }
-};
+}

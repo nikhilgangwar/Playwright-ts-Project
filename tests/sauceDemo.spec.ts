@@ -1,20 +1,27 @@
+import dotenv from "dotenv";
+const stack = process.env.STACK || "automation-au";
+const config = require(`../config/${stack}.json`);
 import { test, expect, Page, Locator } from "@playwright/test";
 import { LoginPage } from "../page-objects/loginPage";
 import { InventoryPage } from "../page-objects/inventoryPage";
 import { CheckoutPage } from "../page-objects/checkoutPage";
+import { CheckoutConfirmationPage } from "../page-objects/checkoutConfirmationPage";
+import { faker } from "@faker-js/faker";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("https://www.saucedemo.com/");
+  await page.goto("/");
 });
 
 test("Login for standard user using atomic functions", async ({ page }) => {
   const loginPage = new LoginPage(page);
   const inventoryPage = new InventoryPage(page);
   const checkoutPage = new CheckoutPage(page);
-  await loginPage.enterusername("standard_user");
-  await loginPage.enterpassword("secret_sauce");
+  const checkoutConfirmationPage = new CheckoutConfirmationPage(page);
+
+  await loginPage.enterusername(process.env.STANDARDUSER);
+  await loginPage.enterpassword(process.env.PASSWORD);
   await loginPage.clicklogin();
-  //await inventoryPage.addProductsToCart();
+
   await inventoryPage.addProductfromProductDetailPage(1);
   await inventoryPage.addProductfromProductDetailPage(2);
   await inventoryPage.addProductfromProductDetailPage(3);
@@ -24,19 +31,24 @@ test("Login for standard user using atomic functions", async ({ page }) => {
   await inventoryPage.goToShopingCart();
   await checkoutPage.clickCheckoutButton();
 
-  await checkoutPage.enterUserInformation("nikhl", "test", "124566");
+  const firstName = faker.person.firstName();
+  var lastName = faker.person.lastName();
+  var zipPostalCode = faker.location.zipCode();
+
+  await checkoutPage.enterUserInformation(firstName, lastName, zipPostalCode);
 
   await checkoutPage.clickContinueButton();
 
   await expect(page).toHaveURL(
     "https://www.saucedemo.com/checkout-step-two.html"
   );
-  await page.locator('[data-test="finish"]').click();
+
+  await checkoutConfirmationPage.clickFinishButton();
 });
 
 test("login for standard user using helper function", async ({ page }) => {
   const loginPage = new LoginPage(page);
-  await loginPage.login("standard_user", "secret_sauce");
+  await loginPage.login(process.env.STANDARDUSER, process.env.PASSWORD);
 });
 
 test.afterEach(async ({ page }) => {
