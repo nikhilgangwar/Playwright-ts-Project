@@ -1,0 +1,6 @@
+{
+"baseURL": "https://www.staging-au.saucedemo.com",
+"standardUser": {"userName": "standard_user_staging-au", "password": "secret_sauce"},
+"lockedUser": {"userName": "locked_out_user_staging-au", "password": "secret_sauce"},
+"environmentName": "staging-au"
+}

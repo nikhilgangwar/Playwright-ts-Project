@@ -54,3 +54,11 @@ test("login for standard user using helper function", async ({ page }) => {
 test.afterEach(async ({ page }) => {
   await page.close();
 });
+
+test.only("Test running using different environments", async ({ page }) => {
+  console.log(config.environmentName)
+  console.log(config.baseURL)
+  console.log(config.standardUser.userName)
+  console.log(config.lockedUser.userName)
+  
+});
