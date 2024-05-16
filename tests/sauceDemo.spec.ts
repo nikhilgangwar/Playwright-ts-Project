@@ -40,7 +40,7 @@ test("Login for standard user using atomic functions", async ({ page }) => {
   await checkoutPage.clickContinueButton();
 
   await expect(page).toHaveURL(
-    "https://www.saucedemo.com/checkout-step-two.html"
+    "/checkout-step-two.html"
   );
 
   await checkoutConfirmationPage.clickFinishButton();
@@ -59,6 +59,5 @@ test("Test running using different environments", async ({ page }) => {
   console.log(config.environmentName)
   console.log(config.baseURL)
   console.log(config.standardUser.userName)
-  console.log(config.lockedUser.userName)
-  
+  console.log(config.lockedUser.userName)  
 });
