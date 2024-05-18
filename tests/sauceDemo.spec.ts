@@ -24,6 +24,7 @@ test("Login for standard user using atomic functions", async ({ page }) => {
   //await argosScreenshot(page, "Login Page - Entered Credentials");
   await loginPage.clicklogin();
 
+  await inventoryPage.expectPagetitleisProducts();
   //await argosScreenshot(page, "Products Page");
   await inventoryPage.addProductfromProductDetailPage(1);
   await inventoryPage.addProductfromProductDetailPage(2);
@@ -52,16 +53,38 @@ test("Login for standard user using atomic functions", async ({ page }) => {
   // await argosScreenshot(page, "Checkout Confirmation Page");
 });
 
-test("login for standard user using helper function", async ({ page }) => {
+test("login for standard user", async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.login(process.env.STANDARDUSER, process.env.PASSWORD);
+  const inventoryPage = new InventoryPage(page);
+  await inventoryPage.expectPagetitleisProducts();
+});
+
+test("login for Locked user", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  await loginPage.login(process.env.LOCKEDUSER, process.env.PASSWORD);
+  const errorContent = await page.locator('[data-test="error"]').textContent();
+  await expect(errorContent).toContain(
+    "Epic sadface: Sorry, this user has been locked out."
+  );
+});
+
+test("login for performance glitch user", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+
+  await loginPage.login(
+    process.env.PERFORMANCEGLITCHUSER,
+    process.env.PASSWORD
+  );
+  const inventoryPage = new InventoryPage(page);
+  await inventoryPage.expectPagetitleisProducts();
 });
 
 test.afterEach(async ({ page }) => {
   await page.close();
 });
 
-test.skip("Test running using different environments", async ({ page }) => {
+test("Test running using different environments", async ({ page }) => {
   console.log(config.environmentName);
   console.log(config.baseURL);
   console.log(config.standardUser.userName);

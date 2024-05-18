@@ -14,6 +14,7 @@ export class InventoryPage {
   readonly removeFromCartButton: Locator;
   readonly backToProductsLink: Locator;
   readonly shopingCartCountBadge: Locator;
+  readonly productPageTitle: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -25,6 +26,7 @@ export class InventoryPage {
     this.shopingCartCountBadge = page.locator(
       '[data-test="shopping-cart-badge"]'
     );
+    this.productPageTitle = page.locator('[data-test="title"]');
   }
 
   async addProductsToCart() {
@@ -68,5 +70,11 @@ export class InventoryPage {
 
   async goToShopingCart() {
     await this.shopingCartCountBadge.click({ force: true });
+  }
+
+  async expectPagetitleisProducts() {
+    await expect(
+      this.productPageTitle.filter({ hasText: "Products" })
+    ).toBeTruthy();
   }
 }
