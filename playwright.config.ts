@@ -20,7 +20,38 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [["junit", { outputFile: "test-results/e2e-junit-results.xml" }]],
+  reporter: [
+    // Use "dot" reporter on CI, "list" otherwise (Playwright default).
+    process.env.CI ? ["dot"] : ["list"],
+    // Add Argos reporter.
+    [
+      "@argos-ci/playwright/reporter",
+      {
+        // Upload to Argos on CI only.
+        uploadToArgos: !!process.env.CI,
+
+        // Set your Argos token (required if not using GitHub Actions).
+        token: "eb5af023bdb73dcca5881709c83be282beea6a2a",
+      },
+    ],
+
+    /*
+    process.env.CI ? ["line"] : ["dot"],
+    [
+      "@argos-ci/playwright/reporter",
+      {
+        // Upload to Argos on CI only.
+        uploadToArgos: !!process.env.CI,
+
+        // Set your Argos token (required if not using GitHub Actions).
+        token: "eb5af023bdb73dcca5881709c83be282beea6a2a",
+      },
+    ],
+    */
+
+    ["json", { open: "on-first-retry" }],
+    ["junit", { outputFile: "test-results/e2e-junit-results.xml" }],
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */

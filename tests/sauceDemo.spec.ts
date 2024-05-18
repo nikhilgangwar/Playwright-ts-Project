@@ -7,9 +7,11 @@ import { InventoryPage } from "../page-objects/inventoryPage";
 import { CheckoutPage } from "../page-objects/checkoutPage";
 import { CheckoutConfirmationPage } from "../page-objects/checkoutConfirmationPage";
 import { faker } from "@faker-js/faker";
+import { argosScreenshot } from "@argos-ci/playwright";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
+  await argosScreenshot(page, "Login Page");
 });
 
 test("Login for standard user using atomic functions", async ({ page }) => {
@@ -20,30 +22,38 @@ test("Login for standard user using atomic functions", async ({ page }) => {
 
   await loginPage.enterusername(process.env.STANDARDUSER);
   await loginPage.enterpassword(process.env.PASSWORD);
+  await argosScreenshot(page, "Login Page - Entered Credentials");
   await loginPage.clicklogin();
 
+  await argosScreenshot(page, "Products Page");
   await inventoryPage.addProductfromProductDetailPage(1);
   await inventoryPage.addProductfromProductDetailPage(2);
+  await argosScreenshot(page, "Added Products to Cart");
   await inventoryPage.addProductfromProductDetailPage(3);
   await inventoryPage.addProductfromProductDetailPage(4);
   await inventoryPage.addProductfromProductDetailPage(5);
   await inventoryPage.addProductfromProductDetailPage(6);
   await inventoryPage.goToShopingCart();
+  await argosScreenshot(page, "Shoping Cart Page");
   await checkoutPage.clickCheckoutButton();
+  await argosScreenshot(page, "Checkout Page");
 
   const firstName = faker.person.firstName();
   var lastName = faker.person.lastName();
   var zipPostalCode = faker.location.zipCode();
 
+  await argosScreenshot(page, "User Information Page");
   await checkoutPage.enterUserInformation(firstName, lastName, zipPostalCode);
-
+  await argosScreenshot(
+    page,
+    "User Information Page - Entered User Information"
+  );
   await checkoutPage.clickContinueButton();
 
-  await expect(page).toHaveURL(
-    "/checkout-step-two.html"
-  );
+  await expect(page).toHaveURL("/checkout-step-two.html");
 
   await checkoutConfirmationPage.clickFinishButton();
+  await argosScreenshot(page, "Checkout Confirmation Page");
 });
 
 test("login for standard user using helper function", async ({ page }) => {
@@ -56,8 +66,8 @@ test.afterEach(async ({ page }) => {
 });
 
 test("Test running using different environments", async ({ page }) => {
-  console.log(config.environmentName)
-  console.log(config.baseURL)
-  console.log(config.standardUser.userName)
-  //console.log(config.lockedUser.userName)  
+  console.log(config.environmentName);
+  console.log(config.baseURL);
+  console.log(config.standardUser.userName);
+  //console.log(config.lockedUser.userName)
 });
