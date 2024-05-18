@@ -84,9 +84,11 @@ test.afterEach(async ({ page }) => {
   await page.close();
 });
 
+/* this test is only sample for running tests with different environments using dotenv using different config files
 test("Test running using different environments", async ({ page }) => {
   console.log(config.environmentName);
   console.log(config.baseURL);
   console.log(config.standardUser.userName);
   //console.log(config.lockedUser.userName)
 });
+*/
