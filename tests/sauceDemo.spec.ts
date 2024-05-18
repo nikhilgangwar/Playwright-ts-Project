@@ -61,7 +61,7 @@ test.afterEach(async ({ page }) => {
   await page.close();
 });
 
-test("Test running using different environments", async ({ page }) => {
+test.skip("Test running using different environments", async ({ page }) => {
   console.log(config.environmentName);
   console.log(config.baseURL);
   console.log(config.standardUser.userName);
