@@ -29,26 +29,6 @@ export class InventoryPage {
     this.productPageTitle = page.locator('[data-test="title"]');
   }
 
-  async addProductsToCart() {
-    await this.addFirstProductToCart();
-    await this.addSecondProductToCart();
-    await this.shopingCartCountBadge.click({ force: true });
-    var cartcount = await this.shopingCartCountBadge.textContent();
-    expect(cartcount).toBe("2");
-  }
-
-  async addFirstProductToCart() {
-    await this.firstProduct.click();
-    await this.clickOnAddToCartButton();
-    await this.backToProductsLink.click();
-  }
-
-  async addSecondProductToCart() {
-    await this.secondProduct.click();
-    await this.clickOnAddToCartButton();
-    await this.backToProductsLink.click();
-  }
-
   async clickOnAddToCartButton() {
     await this.addToCartButton.click({ force: true });
   }
@@ -66,20 +46,29 @@ export class InventoryPage {
     await this.backToProductsLink.click();
   }
 
+  /**
+   * Add a new product based on Array index of product (test-data/products.json)
+   * @param id number start index of product is 0 and end index of product is 5
+   */
   async addProductfromProductListPage(id: number) {
     const product = products[id - 1];
     const datatestvalue = product.datatest;
     const datatestbuttonvalue = product.datatestbutton;
     await this.page.locator("[data-test=" + datatestbuttonvalue + "]").click();
-
-    //await this.clickOnAddToCartButton();
-    //await this.backToProductsLink.click();
   }
 
+  /**
+   * Click on Shoping Cart Badge to go to Shoping Cart Page
+   * @param No arguments
+   */
   async goToShopingCart() {
     await this.shopingCartCountBadge.click({ force: true });
   }
 
+  /**
+   * Expect Page title is Product on Product List page
+   * @param No arguments
+   */
   async expectPagetitleisProducts() {
     await expect(
       this.productPageTitle.filter({ hasText: "Products" })

@@ -200,13 +200,13 @@ test.describe("Test for negative scenarios", () => {
     //Login
     await loginPage.clicklogin();
 
-    //await page.waitForTimeout(10000);
     //expect products page
     await inventoryPage.expectPagetitleisProducts();
-    //await page.waitForTimeout(10000);
+
     //Add Products
     await inventoryPage.addProductfromProductListPage(1);
 
+    //Add Products
     await inventoryPage.addProductfromProductListPage(2);
 
     //Go to Shoping Cart
@@ -225,7 +225,7 @@ test.describe("Test for negative scenarios", () => {
 
     //Continue
     await checkoutPage.clickContinueButton();
-    await page.waitForTimeout(1000);
+
     //expect Error on checkout confirmation page
     const errorContent = await page
       .locator('[data-test="error"]')

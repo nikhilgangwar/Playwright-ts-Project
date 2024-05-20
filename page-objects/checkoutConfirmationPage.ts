@@ -9,8 +9,6 @@ export class CheckoutConfirmationPage {
   readonly finishButton: Locator;
   readonly cancelButton: Locator;
 
-  
-
   constructor(page: Page) {
     this.page = page;
 
@@ -18,12 +16,18 @@ export class CheckoutConfirmationPage {
     this.cancelButton = page.locator('[data-test="cancel"]');
   }
 
-
-
-
+  /**
+   * Clicks Finish button
+   * @param No arguments
+   */
   async clickFinishButton() {
     await this.finishButton.click();
   }
+
+  /**
+   * Clicks the cancel button
+   * @param No arguments
+   */
   async clickCancelButton() {
     await this.cancelButton.click();
   }

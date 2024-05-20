@@ -1,6 +1,5 @@
 import { test, expect, Page, Locator } from "@playwright/test";
 
-
 export class CheckoutPage {
   /**
    * @param {import('@playwright/test').Page} page
@@ -24,34 +23,63 @@ export class CheckoutPage {
     this.cancelButton = page.locator('[data-test="cancel"]');
   }
 
+  /**
+   * Enter User information on checkout page
+   * @param {string} firstname
+   * @param {string} lastName
+   * @param {string} zipPostalCode
+   */
   async enterUserInformation(
-    firstname: string,
+    firstName: string,
     lastNames: string,
     zippostalCode: string
   ) {
-    await this.enterFirstName(firstname);
+    await this.enterFirstName(firstName);
     await this.enterLastName(lastNames);
     await this.enterZipPostalCode(zippostalCode);
   }
 
+  /**
+   * Enter First Name
+   * @param {string} firstName
+   */
   async enterFirstName(firstName: string) {
     await this.firstName.fill(firstName);
   }
 
+  /**
+   * Enter Last Name
+   * @param {string} lastName
+   */
   async enterLastName(lastName: string) {
     await this.lastName.fill(lastName);
   }
 
+  /**
+   * Enter Zip Postal Code
+   * @param {string} zipPostalCode
+   */
   async enterZipPostalCode(zipPostalCode: string) {
     await this.zippostalCode.fill(zipPostalCode);
   }
 
+  /** Clicks Continue Button on checkout Page
+   * @param No arguments
+   */
   async clickContinueButton() {
     await this.continueButton.click();
   }
+
+  /** Clicks CHeckout Button on checkout Page
+   * @param No arguments
+   */
   async clickCheckoutButton() {
     await this.checkoutButton.click();
   }
+
+  /** Clicks Cancel Button on checkout Page
+   * @param No arguments
+   */
   async clickCancelButton() {
     await this.cancelButton;
   }
