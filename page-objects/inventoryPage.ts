@@ -50,7 +50,7 @@ export class InventoryPage {
   }
 
   async clickOnAddToCartButton() {
-    await this.addToCartButton.click();
+    await this.addToCartButton.click({ force: true });
   }
 
   async clickOnRemoveFromCartButton() {
@@ -60,12 +60,20 @@ export class InventoryPage {
   async addProductfromProductDetailPage(id: number) {
     const product = products[id - 1];
     const datatestvalue = product.datatest;
-    await this.page
-      .locator("[data-test=" + datatestvalue + "]")
-      .click({ force: true });
+    await this.page.locator("[data-test=" + datatestvalue + "]").click();
 
     await this.clickOnAddToCartButton();
     await this.backToProductsLink.click();
+  }
+
+  async addProductfromProductListPage(id: number) {
+    const product = products[id - 1];
+    const datatestvalue = product.datatest;
+    const datatestbuttonvalue = product.datatestbutton;
+    await this.page.locator("[data-test=" + datatestbuttonvalue + "]").click();
+
+    //await this.clickOnAddToCartButton();
+    //await this.backToProductsLink.click();
   }
 
   async goToShopingCart() {
