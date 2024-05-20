@@ -1,50 +1,41 @@
-- task: PowerShell@2
-  enabled: true
-  displayName: "Install dependencies"
-  inputs:
-    targetType: "inline"
-    script: "npm ci"
-    workingDirectory: path/to/playwright/folder # update accordingly
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
-- task: PowerShell@2
-  enabled: true
-  displayName: "Run Playwright tests"
-  env:
-    PLAYWRIGHT_SERVICE_ACCESS_TOKEN: $(PLAYWRIGHT_SERVICE_ACCESS_TOKEN)
-    PLAYWRIGHT_SERVICE_URL: $(PLAYWRIGHT_SERVICE_URL)
-  inputs:
-    targetType: "inline"
-    script: "npx playwright test -c playwright.service.config.ts --workers=20"
-    workingDirectory: path/to/playwright/folder # update accordingly
+trigger:
+  - main
 
-- task: PublishPipelineArtifact@1
-  displayName: Upload Playwright report
-  inputs:
-    targetPath: path/to/playwright/folder/playwright-report/ # update accordingly
-    artifact: "Playwright tests"
-    publishLocation: "pipeline"
-- task: PowerShell@2
-  enabled: true
-  displayName: "Install dependencies"
-  inputs:
-    targetType: "inline"
-    script: "npm ci"
-    workingDirectory: path/to/playwright/folder # update accordingly
+pool:
+  vmImage: windows-latest
 
-- task: PowerShell@2
-  enabled: true
-  displayName: "Run Playwright tests"
-  env:
-    PLAYWRIGHT_SERVICE_ACCESS_TOKEN: $(PLAYWRIGHT_SERVICE_ACCESS_TOKEN)
-    PLAYWRIGHT_SERVICE_URL: $(PLAYWRIGHT_SERVICE_URL)
-  inputs:
-    targetType: "inline"
-    script: "npx playwright test -c playwright.service.config.ts --workers=4"
-    workingDirectory: path/to/playwright/folder # update accordingly
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "20.x"
+    displayName: "Install Node.js"
 
-- task: PublishPipelineArtifact@1
-  displayName: Upload Playwright report
-  inputs:
-    targetPath: path/to/playwright/folder/playwright-report/ # update accordingly
-    artifact: "Playwright tests"
-    publishLocation: "pipeline"
+  - script: npm ci
+    displayName: "npm ci"
+  - script: npx playwright install --with-deps
+    displayName: "Install Playwright browsers"
+  - script: npx playwright test
+    displayName: "Run Playwright tests"
+    env:
+      CI: "true"
+  - task: PublishTestResults@2
+    displayName: "Publish test results"
+    inputs:
+      searchFolder: "test-results"
+      testResultsFormat: "JUnit"
+      testResultsFiles: "e2e-junit-results.xml"
+      mergeTestResults: true
+      failTaskOnFailedTests: true
+      testRunTitle: "My End-To-End Tests"
+    condition: succeededOrFailed()
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: "$(Pipeline.Workspace)"
+      artifact: playwright-report
+      publishLocation: "pipeline"
+    condition: succeededOrFailed()
