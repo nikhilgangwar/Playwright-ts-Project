@@ -11,6 +11,16 @@ require("dotenv").config();
  */
 export default defineConfig({
   testDir: "./tests",
+  // General timeout per test
+  timeout: 180000,
+  // For browser actions
+  use: {
+    actionTimeout: 90000,
+  },
+  // For expect calls
+  expect: {
+    timeout: 90000,   // <---------
+  },
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

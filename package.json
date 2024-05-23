@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test --reporter=list --workers=1",
+    "test-html-report": "npx playwright test --workers=1 --reporter=html",
+    "test-json-report": "PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --workers=1 --reporter=json"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
