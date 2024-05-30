@@ -167,12 +167,9 @@ test.describe("Test for negative scenarios", () => {
     page,
   }) => {
     const loginPage = new LoginPage(page);
-
+    const invaliduser = faker.string.alpha(15);
     //Enter Invalid username and password
-    await loginPage.login(
-      faker.internet.userName.toString(),
-      process.env.PASSWORD
-    );
+    await loginPage.login(invaliduser, process.env.PASSWORD);
     const errorContent = await page
       .locator('[data-test="error"]')
       .textContent();
