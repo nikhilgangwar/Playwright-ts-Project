@@ -18,7 +18,7 @@ test.describe("Login, Add products and checkout should be successful", () => {
   }) => {
     const loginPage = new LoginPage(page);
 
-    //Enter username and password
+    //Enter username and password..
     await loginPage.login(process.env.STANDARDUSER, process.env.PASSWORD);
     const inventoryPage = new InventoryPage(page);
 
