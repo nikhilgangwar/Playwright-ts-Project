@@ -180,6 +180,36 @@ test.describe("Test for negative scenarios", () => {
     );
   });
 
+  test("Login for blank username and Valid password should show error on login page", async ({
+    page,
+  }) => {
+    const loginPage = new LoginPage(page);
+
+    //Enter blank username and password
+    await loginPage.login("", process.env.PASSWORD);
+    const errorContent = await page
+      .locator('[data-test="error"]')
+      .textContent();
+
+    //expect error message
+    await expect(errorContent).toContain("Epic sadface: Username is required");
+  });
+
+  test("Login for valid username and blank password should show error on login page", async ({
+    page,
+  }) => {
+    const loginPage = new LoginPage(page);
+
+    //Enter valid username and blank password
+    await loginPage.login(process.env.STANDARDUSER, "");
+    const errorContent = await page
+      .locator('[data-test="error"]')
+      .textContent();
+
+    //expect error message
+    await expect(errorContent).toContain("Epic sadface: Password is required");
+  });
+
   test("Login for Problem user Add Products from detail page to Cart and checkout should show error for last name", async ({
     page,
   }) => {
