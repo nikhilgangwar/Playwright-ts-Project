@@ -53,9 +53,13 @@ npm install
 For local execution of the tests, credentials are stored in a `.env` file. You will need to create a `.env` file in the root directory of the project and provide the necessary credentials in the following format:
 
 STANDARDUSER=
+
 LOCKEDUSER=
+
 PERFORMANCEGLITCHUSER=
+
 PROBLEMUSER=
+
 PASSWORD=
 
 Ensure that you include the `.env` file in your `.gitignore` to prevent accidentally committing sensitive information.
