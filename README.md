@@ -18,6 +18,10 @@ This repository contains an automation framework developed using Playwright and 
 
 ## Getting Started
 
+### URL
+
+The URL for accessing the application is [https://www.saucedemo.com/]
+
 ### Prerequisites
 
 Before running the tests, ensure you have the following installed:
