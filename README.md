@@ -46,6 +46,24 @@ npm install
 
 2. Add necessary environment configurations if required.
 
+## Credentials Management
+
+### Local Execution
+
+For local execution of the tests, credentials are stored in a `.env` file. You will need to create a `.env` file in the root directory of the project and provide the necessary credentials in the following format:
+
+STANDARDUSER=
+LOCKEDUSER=
+PERFORMANCEGLITCHUSER=
+PROBLEMUSER=
+PASSWORD=
+
+Ensure that you include the `.env` file in your `.gitignore` to prevent accidentally committing sensitive information.
+
+### Continuous Integration (CI) Pipeline
+
+For the CI pipeline, credentials are stored as environment variables. These variables should be configured within your CI/CD platform (e.g., azure devops, github actions, Jenkins) to maintain security and confidentiality. Avoid hardcoding credentials directly in the CI configuration files and utilize the platform's secure storage options for sensitive data.
+
 ### Running Tests
 
 Execute the following command to run the tests:
