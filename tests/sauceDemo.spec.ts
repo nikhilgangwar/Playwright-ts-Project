@@ -1,7 +1,7 @@
-import dotenv from "dotenv";
+//import dotenv from "dotenv";
 const stack = process.env.STACK || "automation-au";
 const config = require(`../config/${stack}.json`);
-import { test, expect, Page, Locator } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { LoginPage } from "../page-objects/loginPage";
 import { InventoryPage } from "../page-objects/inventoryPage";
 import { CheckoutPage } from "../page-objects/checkoutPage";
@@ -11,7 +11,6 @@ import { faker } from "@faker-js/faker";
 test.describe("Login, Add products and checkout should be successful", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    //await argosScreenshot(page, "Login Page");
   });
   test("Login for standard user and products listing page should be displayed", async ({
     page,
@@ -131,7 +130,7 @@ test.describe("Login, Add products and checkout should be successful", () => {
 test.describe("Test for negative scenarios", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    //await argosScreenshot(page, "Login Page");
+    
   });
   test("Login for Locked user", async ({ page }) => {
     const loginPage = new LoginPage(page);
@@ -216,7 +215,7 @@ test.describe("Test for negative scenarios", () => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     const checkoutPage = new CheckoutPage(page);
-    //const checkoutConfirmationPage = new CheckoutConfirmationPage(page);
+    
 
     //Enter username
     await loginPage.enterusername(process.env.PROBLEMUSER);
@@ -266,11 +265,11 @@ test.afterEach(async ({ page }) => {
   await page.close();
 });
 
-/* this test is only sample for running tests with different environments using dotenv using different config files
+
 test("Test running using different environments", async ({ page }) => {
   console.log(config.environmentName);
   console.log(config.baseURL);
   console.log(config.standardUser.userName);
-  //console.log(config.lockedUser.userName)
+  
 });
-*/
+

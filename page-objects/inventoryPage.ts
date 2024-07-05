@@ -1,4 +1,4 @@
-import { test, expect, Page, Locator } from "@playwright/test";
+import {expect, Page, Locator} from "@playwright/test";
 
 import { products } from "../test-data/products.json";
 
@@ -51,8 +51,7 @@ export class InventoryPage {
    * @param id number start index of product is 0 and end index of product is 5
    */
   async addProductfromProductListPage(id: number) {
-    const product = products[id - 1];
-    const datatestvalue = product.datatest;
+    const product = products[id - 1];   
     const datatestbuttonvalue = product.datatestbutton;
     await this.page.locator("[data-test=" + datatestbuttonvalue + "]").click();
   }
