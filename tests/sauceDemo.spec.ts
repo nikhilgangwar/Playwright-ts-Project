@@ -1,4 +1,3 @@
-//import dotenv from "dotenv";
 const stack = process.env.STACK || "automation-au";
 const config = require(`../config/${stack}.json`);
 import { test, expect } from "@playwright/test";
@@ -130,7 +129,6 @@ test.describe("Login, Add products and checkout should be successful", () => {
 test.describe("Test for negative scenarios", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    
   });
   test("Login for Locked user", async ({ page }) => {
     const loginPage = new LoginPage(page);
@@ -215,7 +213,6 @@ test.describe("Test for negative scenarios", () => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     const checkoutPage = new CheckoutPage(page);
-    
 
     //Enter username
     await loginPage.enterusername(process.env.PROBLEMUSER);
@@ -265,11 +262,8 @@ test.afterEach(async ({ page }) => {
   await page.close();
 });
 
-
 test("Test running using different environments", async ({ page }) => {
   console.log(config.environmentName);
   console.log(config.baseURL);
   console.log(config.standardUser.userName);
-  
 });
-
