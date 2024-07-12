@@ -9,7 +9,7 @@ import { faker } from "@faker-js/faker";
 
 test.describe("Login, Add products and checkout should be successful", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/", { waitUntil: "domcontentloaded" });
   });
   test("Login for standard user and products listing page should be displayed", async ({
     page,
