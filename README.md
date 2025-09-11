@@ -88,6 +88,22 @@ npm test
 
 4. Write test cases using Playwright API, utilizing the created page objects.
 
+### Azure Pipeline Analytics
+
+<img width="2246" height="987" alt="image" src="https://github.com/user-attachments/assets/b976fc7f-bedc-45d8-95b3-28aa9a6ec276" />
+
+## Pipeline failure report
+
+<img width="2254" height="878" alt="image" src="https://github.com/user-attachments/assets/45ff629f-92c1-4538-8959-d57586669dff" />
+
+## Test failure report
+
+<img width="2258" height="1156" alt="image" src="https://github.com/user-attachments/assets/30fb9318-d4ff-4ab1-938f-7da36863136a" />
+
+## Pipeline duration report
+
+<img width="2276" height="1196" alt="image" src="https://github.com/user-attachments/assets/e3555e05-0aaa-4c7a-88ca-87bb14a29dfb" />
+
 ## Contributors
 
 - [Nikhil Gangwar]
